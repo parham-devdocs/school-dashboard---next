@@ -1,4 +1,5 @@
 import Menu from "@/components/Menu";
+import Navbar from "@/components/Navbar";
 
 export default function DashboardLayout({
   children
@@ -10,7 +11,10 @@ export default function DashboardLayout({
       <div className=" w-1/6 md:w-[8%] lg:w-1/6  ">
         <Menu />
       </div>      
-    <div className=" w-5/6 md:[92%] lg:w-5/6 bg-[#F7F8FA] overflow-scroll "></div>
+      <div className=" w-5/6 md:[92%] lg:w-5/6 bg-[#F7F8FA] overflow-scroll ">
+        <Navbar />
+        {children}
+      </div>
     </div>
         
   );
