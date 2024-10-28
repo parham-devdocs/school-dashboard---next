@@ -1,3 +1,5 @@
+"use client"
+
 const menuItems = [
   {
     title: "MENU",
@@ -113,13 +115,14 @@ const menuItems = [
   },
 ];
 
+import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
 const Menu = () => {
   return (
-    <div className=" flex flex-col ">
+    <motion.div className=" flex flex-col " initial={{opacity:0}} animate={{opacity:1}} transition={{duration:1}}>
       <div className=" mt-2 mb-5">
         <Link
           href={"/"}
@@ -157,7 +160,7 @@ const Menu = () => {
           );
         })}
       </div>
-    </div>
+    </motion.div>
   );
 };
 
