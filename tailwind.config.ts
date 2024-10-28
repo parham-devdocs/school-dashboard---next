@@ -8,6 +8,14 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      colors: {
+        sky: "#C3EBFA",
+        skyLight: "#EDF9FD",
+        purple: "#CFCEFF", 
+        purpleLight: "#F1F0FF",
+        yellow: "#FAE27C",
+        yellowLight: "#FEFCEB",
+      },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":
@@ -17,4 +25,5 @@ const config: Config = {
   },
   plugins: [],
 };
+
 export default config;
