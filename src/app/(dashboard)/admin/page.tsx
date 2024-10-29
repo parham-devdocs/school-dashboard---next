@@ -1,5 +1,6 @@
 "use client"
 import AttendanceChart from "@/components/AttendanceChart";
+import FinaceChart from "@/components/FinaceChart";
 import RadialChart from "@/components/radialChart";
 import UserCard from "@/components/UserCard";
 import { motion } from "framer-motion";
@@ -42,6 +43,9 @@ const AdminPage = () => {
          <div className=" w-full lg:w-2/3 h-[450px]"><AttendanceChart/></div>
         </div>
         {/* BOTTOM CHART */}
+        <div className=" w-full h-[500px]">
+          <FinaceChart/>
+        </div>
         </div>
       {/* Right */}
       <div className=" w-1/3">r</div>
