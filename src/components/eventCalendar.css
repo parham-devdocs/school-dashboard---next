@@ -1,0 +1,7 @@
+.react-calendar__tile--active{
+   @apply bg-sky text-black 
+}
+
+button{
+    @apply rounded-md
+}

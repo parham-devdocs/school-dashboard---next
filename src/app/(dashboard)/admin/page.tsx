@@ -1,5 +1,6 @@
 "use client"
 import AttendanceChart from "@/components/AttendanceChart";
+import EventCalendar from "@/components/eventCalendar";
 import FinaceChart from "@/components/FinaceChart";
 import RadialChart from "@/components/radialChart";
 import UserCard from "@/components/UserCard";
@@ -48,7 +49,9 @@ const AdminPage = () => {
         </div>
         </div>
       {/* Right */}
-      <div className=" w-1/3">r</div>
+      <div className=" w-1/3">
+        <EventCalendar/>
+      </div>
     </div>
   );
 };
