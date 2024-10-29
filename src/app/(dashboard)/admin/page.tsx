@@ -1,4 +1,5 @@
 "use client"
+import AttendanceChart from "@/components/AttendanceChart";
 import RadialChart from "@/components/radialChart";
 import UserCard from "@/components/UserCard";
 import { motion } from "framer-motion";
@@ -38,7 +39,7 @@ const AdminPage = () => {
           {/* RADIAL CHART */}
           <div className=" w-full lg:w-1/3 h-[450px]"> <RadialChart /></div>
           {/* ATTENDANCE CHART */}
-         <div className=" w-full lg:w-2/3 h-[450px]"></div>
+         <div className=" w-full lg:w-2/3 h-[450px]"><AttendanceChart/></div>
         </div>
         {/* BOTTOM CHART */}
         </div>

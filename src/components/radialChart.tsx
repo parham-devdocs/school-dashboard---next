@@ -7,16 +7,13 @@ import {
 } from "recharts";
 import Image from "next/image";
 const data = [
-  { name: "Boys", count:50, fill: "#C3EBFA" },
-  { name: "Girls", count:62, pv: 4567, fill: "#FAE27C" },
+  { name: "Total", count: 112, fill: "#FFAC5C" },
+
+  { name: "Boys", count: 50, fill: "#C3EBFA" },
+  { name: "Girls", count: 62, pv: 4567, fill: "#FAE27C" },
 ];
 
-const style = {
-  top: "50%",
-  right: "-100px",
-  transform: "translate(0, -50%)",
-  lineHeight: "24px",
-};
+
 
 export default function RadialChart() {
   return (
@@ -38,12 +35,13 @@ export default function RadialChart() {
             cx="50%"
             cy="50%"
             innerRadius="50%"
-            outerRadius="80%"
+            outerRadius="90%"
             barSize={20}
             data={data}
+            
           >
             <RadialBar
-              label={{ position: "insideStart", fill: "#fff" }}
+              // label={{ position: "insideStart", fill: "FFFCA44" }}
               background
               dataKey="count"
             />
