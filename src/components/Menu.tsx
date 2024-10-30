@@ -1,5 +1,4 @@
 "use client"
-
 const menuItems = [
   {
     title: "MENU",
@@ -115,6 +114,7 @@ const menuItems = [
   },
 ];
 
+import { role } from "@/lib/data";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
@@ -136,25 +136,31 @@ const Menu = () => {
           return (
             <div
               key={i.title}
-              className=" flex flex-col gap-3 items-center lg:items-start lg:ml-2"
+              className=" flex flex-col  items-center lg:items-start lg:ml-2 "
             >
               <span className=" my-2 hidden lg:block text-gray-400 font-light">
                 {i.title}
               </span>
               {i.items.map((i) => {
-                return (
-                  <div key={i.label}>
-                    <Link href={i.href} className=" flex gap-2 text-gray-500">
-                      <Image
-                        src={i.icon}
-                        alt="item-icon"
-                        width={24}
-                        height={24}
-                      />{" "}
-                      <span className=" hidden lg:block"> {i.label} </span>
-                    </Link>
-                  </div>
-                );
+                if (i.visible.includes(role)) {
+                    return (
+                      <div key={i.label} className=" w-full ">
+                        <Link
+                          href={i.href}
+                          className=" flex gap-2 text-gray-500 hover:bg-skyLight transition-colors duration-300 rounded-md py-[6px] px-1 "
+                        >
+                          <Image
+                            src={i.icon}
+                            alt="item-icon"
+                            width={24}
+                            height={24}
+                          />{" "}
+                          <span className=" hidden lg:block"> {i.label} </span>
+                        </Link>
+                      </div>
+                    );
+                }
+              
               })}
             </div>
           );

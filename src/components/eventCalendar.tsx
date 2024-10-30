@@ -4,6 +4,7 @@ import "./eventCalendar.css";
 import Calendar from "react-calendar";
 import { motion } from "framer-motion";
 import Image from "next/image";
+import Announcements from "./Announcements";
 
 type ValuePiece = Date | null;
 
@@ -41,7 +42,7 @@ const EventCalendar = () => {
       transition={{ duration: 3 }}
     >
       <Calendar onChange={onChange} value={value} className=" rounded-md p-2" />
-      <div className=" flex flex-col gap-4 mt-6">
+      <div className=" flex flex-col gap-2 my-6">
         <div className=" flex items-center justify-between">
           <h1>Events</h1>
           <Image src={"/moreDark.png"} alt="more-icon" width={20} height={20} />
@@ -49,7 +50,7 @@ const EventCalendar = () => {
         {events.map((e) => (
           <div
             key={e.id}
-            className=" p-4 border-zinc-200 border-2 mt-4 rounded-md flex flex-col gap-5"
+            className=" p-4 border-gray-100 odd:border-t-sky even:border-t-yellow border-2 mt-4 rounded-md flex flex-col gap-5"
           >
             <div className=" flex justify-between items-center ">
               {" "}
@@ -60,6 +61,7 @@ const EventCalendar = () => {
           </div>
         ))}
       </div>
+      <Announcements/>
     </motion.div>
   );
 };
