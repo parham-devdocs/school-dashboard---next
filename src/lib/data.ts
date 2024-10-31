@@ -119,13 +119,13 @@ export const studentsData = [
   {
     id: 1,
     studentId: "1234567890",
-    name: "John Doe",
+    name: "mark Doe",
     email: "john@doe.com",
     photo:
-      "https://images.pexels.com/photos/2888150/pexels-photo-2888150.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "https://i.pravatar.cc/150?u=15",
     phone: "1234567890",
     grade: 5,
-    class: "1B",
+    studentClass: "1B",
     address: "123 Main St, Anytown, USA",
   },
   {
@@ -134,10 +134,10 @@ export const studentsData = [
     name: "Jane Doe",
     email: "jane@doe.com",
     photo:
-      "https://images.pexels.com/photos/936126/pexels-photo-936126.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "https://i.pravatar.cc/150?u=16",
     phone: "1234567890",
     grade: 5,
-    class: "5A",
+    studentClass: "5A",
     address: "123 Main St, Anytown, USA",
   },
   {
@@ -146,10 +146,10 @@ export const studentsData = [
     name: "Mike Geller",
     email: "mike@geller.com",
     photo:
-      "https://images.pexels.com/photos/428328/pexels-photo-428328.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "https://i.pravatar.cc/150?u=17",
     phone: "1234567890",
     grade: 5,
-    class: "5A",
+    studentClass: "5A",
     address: "123 Main St, Anytown, USA",
   },
   {
@@ -158,10 +158,10 @@ export const studentsData = [
     name: "Jay French",
     email: "jay@gmail.com",
     photo:
-      "https://images.pexels.com/photos/1187765/pexels-photo-1187765.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "https://i.pravatar.cc/150?u=18",
     phone: "1234567890",
     grade: 5,
-    class: "5A",
+    studentClass: "5A",
     address: "123 Main St, Anytown, USA",
   },
   {
@@ -170,10 +170,10 @@ export const studentsData = [
     name: "Jane Smith",
     email: "jane@gmail.com",
     photo:
-      "https://images.pexels.com/photos/1102341/pexels-photo-1102341.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "https://i.pravatar.cc/150?u=19",
     phone: "1234567890",
     grade: 5,
-    class: "5A",
+    studentClass: "5A",
     address: "123 Main St, Anytown, USA",
   },
   {
@@ -182,10 +182,10 @@ export const studentsData = [
     name: "Anna Santiago",
     email: "anna@gmail.com",
     photo:
-      "https://images.pexels.com/photos/712513/pexels-photo-712513.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "https://i.pravatar.cc/150?u=20",
     phone: "1234567890",
     grade: 5,
-    class: "5A",
+    studentClass: "5A",
     address: "123 Main St, Anytown, USA",
   },
   {
@@ -194,10 +194,10 @@ export const studentsData = [
     name: "Allen Black",
     email: "allen@black.com",
     photo:
-      "https://images.pexels.com/photos/1438081/pexels-photo-1438081.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "https://i.pravatar.cc/150?u=21",
     phone: "1234567890",
     grade: 5,
-    class: "5A",
+    studentClass: "5A",
     address: "123 Main St, Anytown, USA",
   },
   {
@@ -206,10 +206,10 @@ export const studentsData = [
     name: "Ophelia Castro",
     email: "ophelia@castro.com",
     photo:
-      "https://images.pexels.com/photos/1036623/pexels-photo-1036623.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "https://i.pravatar.cc/150?u=22",
     phone: "1234567890",
     grade: 5,
-    class: "5A",
+    studentClass: "5A",
     address: "123 Main St, Anytown, USA",
   },
   {
@@ -218,10 +218,10 @@ export const studentsData = [
     name: "Derek Briggs",
     email: "derek@briggs.com",
     photo:
-      "https://images.pexels.com/photos/842980/pexels-photo-842980.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "https://i.pravatar.cc/150?u=23",
     phone: "1234567890",
     grade: 5,
-    class: "5A",
+    studentClass: "5A",
     address: "123 Main St, Anytown, USA",
   },
   {
@@ -230,10 +230,10 @@ export const studentsData = [
     name: "John Glover",
     email: "john@glover.com",
     photo:
-      "https://images.pexels.com/photos/1043474/pexels-photo-1043474.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "https://i.pravatar.cc/150?u=24",
     phone: "1234567890",
     grade: 5,
-    class: "5A",
+    studentClass: "5A",
     address: "123 Main St, Anytown, USA",
   },
 ];
