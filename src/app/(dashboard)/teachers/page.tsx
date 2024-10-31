@@ -71,11 +71,11 @@ const Row = ({
           <h4>{email}</h4>
         </div>
       </td>
-      <td className=" hidden md:table-cell">{teacherId}</td>
-      <td className=" hidden md:table-cell">{classes.join(",")}</td>
-      <td className=" hidden md:table-cell">{subjects.join(",")}</td>
-      <td className=" hidden md:table-cell">{phone}</td>
-      <td className=" hidden md:table-cell">{address}</td>
+      <td className=" hidden md:table-cell text-center">{teacherId}</td>
+      <td className=" hidden md:table-cell text-center">{classes.join(",")}</td>
+      <td className=" hidden md:table-cell text-center">{subjects.join(",")}</td>
+      <td className=" hidden md:table-cell text-center">{phone}</td>
+      <td className=" hidden md:table-cell text-center">{address}</td>
       <td className=" flex gap-2 items-center mb-5">
         <Link href={`/teachers/${id}`}>
           {" "}

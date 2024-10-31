@@ -81,7 +81,7 @@ const Row = ({
       <td className="hidden md:table-cell text-center">{phone}</td>
       <td className="hidden md:table-cell text-center">{address}</td>
       <td className="flex gap-2 items-center mb-5">
-        <Link href={`/teachers/${id}`}>
+        <Link href={`/students/${id}`}>
           <button className="bg-sky rounded-full p-2">
             <Image src={"/view.png"} alt="View" width={15} height={15} />
           </button>
