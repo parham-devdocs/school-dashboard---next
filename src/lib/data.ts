@@ -846,7 +846,7 @@ export const eventsData = [
     id: 10,
     title: "Sports Tournament",
     class: "5B",
-    date: "2025-01-01",
+    date: "2025-01-01zzz",
     startTime: "10:00",
     endTime: "11:00",
   },
