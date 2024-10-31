@@ -1,7 +1,37 @@
 import TableSearch from "@/components/TableSearch";
 import React from "react";
 import Image from "next/image";
-import Pagination from "@/components/Pagination"
+import Pagination from "@/components/Pagination";
+import Table from "@/components/Table";
+const colomns = [
+  { header: "Info", accessor: "info" },
+  {
+    header: "Teacher Id",
+    accessor: "taecherId",
+    className: "hidden md:table-cell",
+  },
+  {
+    header: "Subjects",
+    accessor: "subjects",
+    className: "hidden md:table-cell",
+  },
+  {
+    header: "Classes",
+    accessor: "classes",
+    className: "hidden md:table-cell",
+  },
+  {
+    header: "Phone",
+    accessor: "phone",
+    className: "hidden lg:table-cell",
+  },
+  {
+    header: "Address",
+    accessor: "address",
+    className: "hidden lg:table-cell",
+  },
+  {header:"Actions",accessor:"actions"}
+];
 const TeacherPage = () => {
   return (
     <div className=" bg-white p-4 rounded-md flex-1 m-4 mt-0">
@@ -27,8 +57,9 @@ const TeacherPage = () => {
         </div>
       </div>
       {/* LIST */}
+      <Table columns={colomns} />
       {/* PAGINATION  */}
-      <Pagination/>
+      <Pagination />
     </div>
   );
 };
