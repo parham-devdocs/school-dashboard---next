@@ -38,9 +38,10 @@ const TeacherPage = () => {
       {/* TOP */}
       <div className=" flex justify-between items-center">
         <h1 className=" font-semibold text-xl hidden md:block">All Teacher</h1>
-        <div className=" flex flex-col md:flex-row items-center gap-4  w-full md:w-auto">
+        <div className=" flex flex-col  md:flex-row items-center gap-4  w-full md:w-auto">
           <TableSearch />
-          <button className=" bg-yellow p-2 hover:bg-orange-300 transition-colors duration-300 rounded-full">
+          <div className=" flex gap-2">
+             <button className=" bg-yellow p-2 hover:bg-orange-300 transition-colors duration-300 rounded-full">
             <Image
               src={"/filter.png"}
               alt="filter-icon"
@@ -54,6 +55,8 @@ const TeacherPage = () => {
           <button className=" bg-yellow p-2 hover:bg-orange-300 transition-colors duration-300 rounded-full">
             <Image src={"/plus.png"} alt="filter-icon" width={15} height={15} />
           </button>
+          </div>
+         
         </div>
       </div>
       {/* LIST */}

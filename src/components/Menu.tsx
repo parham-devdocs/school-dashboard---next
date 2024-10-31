@@ -122,7 +122,7 @@ import React from "react";
 
 const Menu = () => {
   return (
-    <motion.div className=" flex flex-col " initial={{opacity:0}} animate={{opacity:1}} transition={{duration:1}}>
+    <motion.div className=" flex flex-col items-center md:items-start " initial={{opacity:0}} animate={{opacity:1}} transition={{duration:1}}>
       <div className=" mt-2 mb-5">
         <Link
           href={"/"}
