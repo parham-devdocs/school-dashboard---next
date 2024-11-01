@@ -1,3 +1,4 @@
+import SmallCard from "@/components/SmallCard";
 import { headers } from "next/headers";
 import Image from "next/image";
 import React from "react";
@@ -8,7 +9,7 @@ const SingleTeacherPage = () => {
       {/* LEFT */}
       <div className=" w-full xl:w-2/3 flex flex-wrap gap-2">
         {/* TOP  */}
-        <div>
+        <div className=" flex flex-col lg:flex-row min-h-40 gap-4">
           {/* USER INFO CARD */}
           <div className=" w-full lg:w-1/2 p-3 bg-sky rounded-md flex gap-4">
             <div>
@@ -67,7 +68,20 @@ const SingleTeacherPage = () => {
             </div>
           </div>
           {/* SMALL CARD  */}
-          <div className=" w-full lg:w-1/2"></div>
+          <div className=" w-full lg:w-1/2 gap-4 flex flex-col">
+            <div className=" flex gap-4 h-full">
+              <SmallCard
+                icon="/singleAttendance.png"
+                title="attendances"
+                amount="90%"
+              />
+              <SmallCard icon="/singleBranch.png" title="branches" amount="2" />
+            </div>
+            <div className=" flex gap-2 h-full">
+              <SmallCard icon="/singleLesson.png" title="lesson" amount="6" />
+              <SmallCard icon="/singleClass.png" title="classes" amount="6" />
+            </div>
+          </div>
         </div>
         {/* BOTTOM  */}
         <div className="">Schedule</div>
