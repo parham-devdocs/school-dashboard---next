@@ -48,7 +48,7 @@ const Row = ({ id, name, supervisor, grade, capacity }: Class) => {
       <td className="flex gap-2 items-center my-3 justify-center  ">
         <Link href={`/parents/${id}`}>
           <button className="bg-sky rounded-full p-2">
-            <Image src={"/view.png"} alt="View" width={15} height={15} />
+            <Image src={"/edit.png"} alt="View" width={15} height={15} />
           </button>
         </Link>
         {role.includes("admin") && (
