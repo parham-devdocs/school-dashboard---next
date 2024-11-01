@@ -1,66 +1,50 @@
+
+
 import TableSearch from "@/components/TableSearch";
 import React from "react";
 import Image from "next/image";
 import Pagination from "@/components/Pagination";
 import Table from "@/components/Table";
-import { role, parentsData } from "@/lib/data";
+import { role, examsData } from "@/lib/data";
 import Link from "next/link";
 
-interface Parent {
+interface Exam {
   id: number;
-  parentId: string;
-  name: string;
-  email?: string;
-  students: string[];
-  address: string;
-  phone?: string;
+  subject: string;
+  class: string;
+  teacher: string;
+  date: string;
 }
 const columns = [
-  { header: "Info", accessor: "info" },
+  { header: "Subject Name", accessor: "subject" },
 
   {
-    header: "Phone",
-    accessor: "phone",
-    className: "hidden md:table-cell",
-  },
-  {
-    header: "Students",
-    accessor: "students",
+    header: "Class",
+    accessor: "class",
     className: "hidden lg:table-cell",
   },
   {
-    header: "Address",
-    accessor: "address",
+    header: "Teacher",
+    accessor: "teacher",
     className: "hidden lg:table-cell",
   },
+  {
+    header: "Date",
+    accessor: "date",
+  },
+
   { header: "Actions", accessor: "actions" },
 ];
 
-const Row = ({
-  id,
-
-  students,
-  name,
-  email,
-  phone,
-
-  address,
-}: Parent) => {
+const Row = (item: Exam) => {
   return (
-    <tr key={id} className="even:bg-purpleLight hover:bg-purple">
-      {" "}
-      {/* Added key prop */}
-      <td className="flex gap-4 items-center ml-3 ">
-        <div className="flex flex-col gap-2">
-          <h3 className="font-medium">{name}</h3>
-          <h4>{email && email}</h4>
-        </div>
-      </td>
-      <td className="hidden md:table-cell text-center">{students.join(",")}</td>
-      <td className="hidden md:table-cell text-center">{phone}</td>
-      <td className="hidden md:table-cell text-center">{address}</td>
+    <tr key={item.id} className="even:bg-purpleLight hover:bg-purple">
+      <td className=" text-center">{item.subject}</td>
+      <td className="hidden md:table-cell text-center ml-3 ">{item.class}</td>
+      <td className="hidden md:table-cell text-center">{item.teacher}</td>
+      <td className=" text-center">{item.date}</td>
       <td className="flex gap-2 items-center mt-5 justify-center  ">
-        <Link href={`/parents/${id}`}>
+        <Link href={`/exams/${item.id}`}>
           <button className="bg-sky rounded-full p-2">
             <Image src={"/edit.png"} alt="View" width={15} height={15} />
           </button>
@@ -80,7 +64,7 @@ const ParentsPage = () => {
     <div className=" bg-white p-4 rounded-md flex-1 m-4 mt-0">
       {/* TOP */}
       <div className=" flex justify-between items-center">
-        <h1 className=" font-semibold text-xl hidden md:block">All Parents</h1>
+        <h1 className=" font-semibold text-xl hidden md:block">All Exams</h1>
         <div className=" flex flex-col  md:flex-row items-center gap-4  w-full md:w-auto">
           <TableSearch />
           <div className=" flex gap-2">
@@ -112,7 +96,7 @@ const ParentsPage = () => {
         </div>
       </div>
       {/* LIST */}
-      <Table columns={columns} data={parentsData} renderRow={Row} />
+      <Table columns={columns} data={examsData} renderRow={Row} />
       {/* PAGINATION  */}
       <Pagination />
     </div>
