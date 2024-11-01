@@ -18,7 +18,7 @@ const columns = [
   {
     header: "Teachers",
     accessor: "teachers",
-    className: "hidden md:table-cell",
+   
   },
   { header: "Actions", accessor: "actions" },
 ];
@@ -39,7 +39,7 @@ teachers,
               <p>{ name }</p>
       </td>
    
-      <td className="hidden md:table-cell text-center">{teachers.join(",")}</td>
+      <td className=" text-center">{teachers.join(",")}</td>
          
       <td className="flex gap-2 items-center mt-5 justify-center  ">
         <Link href={`/subjects/${id}`}>
