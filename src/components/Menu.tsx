@@ -136,7 +136,7 @@ const Menu = () => {
           return (
             <div
               key={i.title}
-              className=" flex flex-col  items-center lg:items-start lg:ml-2 "
+              className=" flex flex-col   lg:ml-2 "
             >
               <span className=" my-2 hidden lg:block text-gray-400 font-light">
                 {i.title}
@@ -144,7 +144,7 @@ const Menu = () => {
               {i.items.map((i) => {
                 if (i.visible.includes(role)) {
                     return (
-                      <div key={i.label} className=" w-full ">
+                      <div key={i.label} className=" w-full flex justify-center lg:justify-start  ">
                         <Link
                           href={i.href}
                           className=" flex gap-2 text-gray-500 hover:bg-skyLight transition-colors duration-300 rounded-md py-[6px] px-1 "
