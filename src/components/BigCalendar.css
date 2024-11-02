@@ -1,0 +1,6 @@
+.rbc-events {
+  height: 50px;
+}
+.h{
+    @apply h-16
+}

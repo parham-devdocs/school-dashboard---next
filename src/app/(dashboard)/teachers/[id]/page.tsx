@@ -1,8 +1,8 @@
 import SmallCard from "@/components/SmallCard";
-import { headers } from "next/headers";
 import Image from "next/image";
 import React from "react";
-
+import EventCalendar from "@/components/BigCalendar"
+import Announcements from "@/components/Announcements.tsx"
 const SingleTeacherPage = () => {
   return (
     <div className=" flex-1 flex p-4 flex-col gap-4 xl:flex-row">
@@ -11,64 +11,68 @@ const SingleTeacherPage = () => {
         {/* TOP  */}
         <div className=" flex flex-col lg:flex-row min-h-40 gap-4">
           {/* USER INFO CARD */}
-          <div className=" w-full lg:w-1/2 p-3 bg-sky rounded-md flex gap-4">
-            <div>
+          <div className=" w-full lg:w-1/2 p-3 bg-sky rounded-md flex-1 flex gap-4">
+            <div className=" w-1/4 ">
               <Image
                 src={"/teacherPresonalPhoto.jpeg"}
-                width={100}
-                height={100}
-                className=" rounded-full w-80"
+                width={144}
+                height={144}
+                className=" rounded-full"
                 alt="personal photo"
               />
             </div>
-            <div>
+            <div className=" w-3/4">
               <h1 className=" font-bold text-xl">Dean Guerro</h1>
               <p className=" text-sm my-3">
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae,
                 commodi aperiam! Velit dolore ar
               </p>
-              <div className=" flex flex-col gap-1">
-                <div className=" flex gap-1">
-                  <Image
-                    src={"/blood.png"}
-                    alt="blood-photo"
-                    width={15}
-                    height={15}
-                  />
-                  <p className=" font-semibold text-sm">A+</p>
+              <div className=" flex flex-col gap-1 lg:flex-row ">
+                <div className=" flex flex-col gap-2">
+                  <div className=" flex gap-1 ">
+                    <Image
+                      src={"/blood.png"}
+                      alt="blood-photo"
+                      width={15}
+                      height={15}
+                    />
+                    <p className=" font-semibold text-sm">A+</p>
+                  </div>
+                  <div className=" flex gap-1">
+                    <Image
+                      src={"/calendar.png"}
+                      alt="calendar-photo"
+                      width={15}
+                      height={15}
+                    />
+                    <p className=" font-semibold text-sm">January 2005</p>
+                  </div>
                 </div>
-                <div className=" flex gap-1">
-                  <Image
-                    src={"/calendar.png"}
-                    alt="calendar-photo"
-                    width={15}
-                    height={15}
-                  />
-                  <p className=" font-semibold text-sm">January 2005</p>
-                </div>
-                <div className=" flex gap-1">
-                  <Image
-                    src={"/mail.png"}
-                    alt="mail-photo"
-                    width={15}
-                    height={15}
-                  />
-                  <p className=" font-semibold text-sm">Guerro@gamil.com</p>
-                </div>{" "}
-                <div className=" flex gap-1 items-center">
-                  <Image
-                    src={"/phone.png"}
-                    alt="phone-photo"
-                    width={15}
-                    height={15}
-                  />
-                  <p className=" font-semibold text-sm">+1 234 567 49</p>
+                <div className=" flex flex-col gap-2">
+                  <div className=" flex gap-1">
+                    <Image
+                      src={"/mail.png"}
+                      alt="mail-photo"
+                      width={15}
+                      height={15}
+                    />
+                    <p className=" font-semibold text-sm">Guerro@gamil.com</p>
+                  </div>{" "}
+                  <div className=" flex gap-1 items-center">
+                    <Image
+                      src={"/phone.png"}
+                      alt="phone-photo"
+                      width={15}
+                      height={15}
+                    />
+                    <p className=" font-semibold text-sm">+1 234 567 49</p>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
           {/* SMALL CARD  */}
-          <div className=" w-full lg:w-1/2 gap-4 flex flex-col">
+          <div className=" w-full lg:w-1/2 gap-4 flex flex-col ">
             <div className=" flex gap-4 h-full">
               <SmallCard
                 icon="/singleAttendance.png"
@@ -84,10 +88,15 @@ const SingleTeacherPage = () => {
           </div>
         </div>
         {/* BOTTOM  */}
-        <div className="">Schedule</div>
+        <div className=" mt-4 bg-white rounded-md p-4  w-full space-y-3">
+          <h1 className=" font-semibold text-lg"> Teacher's Schedule</h1>
+          <EventCalendar/>
+        </div>
       </div>
       {/* RIGHT  */}
-      <div className=" w-full xl:w-1/3">r</div>
+      <div className=" w-full xl:w-1/3">
+      <Announcements/>
+      </div>
     </div>
   );
 };
