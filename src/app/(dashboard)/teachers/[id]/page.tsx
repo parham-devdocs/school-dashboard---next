@@ -3,6 +3,7 @@ import Image from "next/image";
 import React from "react";
 import EventCalendar from "@/components/BigCalendar"
 import Announcements from "@/components/Announcements.tsx"
+import Link from "next/link";
 const SingleTeacherPage = () => {
   return (
     <div className=" flex-1 flex p-4 flex-col gap-4 xl:flex-row">
@@ -90,12 +91,22 @@ const SingleTeacherPage = () => {
         {/* BOTTOM  */}
         <div className=" mt-4 bg-white rounded-md p-4  w-full space-y-3">
           <h1 className=" font-semibold text-lg"> Teacher's Schedule</h1>
-          <EventCalendar/>
+          <EventCalendar />
         </div>
       </div>
       {/* RIGHT  */}
       <div className=" w-full xl:w-1/3">
-      <Announcements/>
+        <div className=" bg-white p-4 rounded-md">
+          <h1 className=" text-xl font-semibold ">Shortcuts</h1>
+          <div className=" mt-4 gap-4 flex flex-wrap text-xs text-gray-500">
+            <Link href={"/"} className=" bg-purple px-4 py-2 rounded-sm">Teacher&apos;s Classes</Link>
+            <Link href={"/"} className=" bg-sky px-4 py-2 rounded-sm">Teacher&apos;s Students</Link>
+            <Link href={"/"} className=" bg-skyLight px-4 py-2 rounded-sm">Teacher&apos;s Lessons</Link>
+            <Link href={"/"} className=" bg-yellow px-4 py-2 rounded-sm">Teacher&apos;s Exams</Link>
+            <Link href={"/"} className=" bg-pink-200 px-4 py-2 rounded-sm">Teacher&apos;s Assignments</Link>
+          </div>
+        </div>
+        <Announcements />
       </div>
     </div>
   );
