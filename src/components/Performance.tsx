@@ -34,6 +34,9 @@ export default function Performance() {
         <h1 className=" text-center font-semibold">9.2</h1>
         <p className=" text-[12px] text-gray-500">of 10 max LTS</p>
       </motion.div>
+      <motion.div initial={{opacity:0,y:30}} animate={{opacity:1,y:0}} transition={{duration:1}} className=" text-center">
+1st Semester-2nd Semester
+      </motion.div>
     </div>
   );
 }
