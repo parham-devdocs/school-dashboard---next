@@ -5,6 +5,7 @@ import Pagination from "@/components/Pagination";
 import Table from "@/components/Table";
 import { role, announcementsData } from "@/lib/data";
 import Link from "next/link";
+import FormModal from "@/components/FormModal";
 
 interface Announcement {
   id: number;
@@ -40,15 +41,9 @@ const Row = (item: Announcement) => {
       <td className=" text-center">{item.date}</td>
 
       <td className="flex gap-2 items-center mt-5 justify-center  ">
-        <Link href={`/exams/${item.id}`}>
-          <button className="bg-sky rounded-full p-2">
-            <Image src={"/edit.png"} alt="View" width={15} height={15} />
-          </button>
-        </Link>
+      <FormModal data={{id:item.id,title:item.title,class:item.class,date:item.date}} table="announcement" type="update"/>
         {role.includes("admin") && (
-          <button className="bg-purple rounded-full p-2">
-            <Image src={"/delete.png"} alt="Delete" width={15} height={15} />
-          </button>
+        <FormModal id={item.id} table="announcement" type="delete"/>
         )}
       </td>
     </tr>
@@ -80,14 +75,8 @@ const AnnouncementsPage = () => {
                 height={15}
               />
             </button>
-            <button className=" bg-yellow p-2 hover:bg-orange-300 transition-colors duration-300 rounded-full">
-              <Image
-                src={"/plus.png"}
-                alt="filter-icon"
-                width={15}
-                height={15}
-              />
-            </button>
+           <FormModal table="announcement" type="create" />
+            
           </div>
         </div>
       </div>

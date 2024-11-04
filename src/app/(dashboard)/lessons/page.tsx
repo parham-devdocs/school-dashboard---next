@@ -5,6 +5,7 @@ import Pagination from "@/components/Pagination";
 import Table from "@/components/Table";
 import { role, lessonsData } from "@/lib/data";
 import Link from "next/link";
+import FormModal from "@/components/FormModal";
 
 interface Lesson {
   id: number;
@@ -40,14 +41,11 @@ const Row = (item: Lesson) => {
       </td>
       <td className=" space-x-1 text-center pt-2 pb-2  ">
         <Link href={`/lesson/${item.id}`}>
-          <button className="bg-sky rounded-full p-2">
-            <Image src={"/edit.png"} alt="View" width={15} height={15} />
-          </button>
+          <FormModal type="update" table="lesson" data={{id:item.id,subject:item.subject,class:item.class,teacher:item.class}}/>
         </Link>
         {role.includes("admin") && (
-          <button className="bg-purple rounded-full p-2">
-            <Image src={"/delete.png"} alt="Delete" width={15} height={15} />
-          </button>
+          <FormModal type="delete" table="lesson" id={item.id} />
+        
         )}
       </td>
     </tr>
@@ -79,14 +77,7 @@ const ParentsPage = () => {
                 height={15}
               />
             </button>
-            <button className=" bg-yellow p-2 hover:bg-orange-300 transition-colors duration-300 rounded-full">
-              <Image
-                src={"/plus.png"}
-                alt="filter-icon"
-                width={15}
-                height={15}
-              />
-            </button>
+            <FormModal table="announcement" type="create" />
           </div>
         </div>
       </div>

@@ -5,7 +5,7 @@ import Pagination from "@/components/Pagination";
 import Table from "@/components/Table";
 import { role, subjectsData } from "@/lib/data";
 import Link from "next/link";
-
+import FormModal from "@/components/FormModal.tsx"
 interface Subject {
   id: number;
     name: string;
@@ -42,16 +42,14 @@ teachers,
       <td className=" text-center">{teachers.join(",")}</td>
          
       <td className="flex gap-2 items-center mt-5 justify-center  ">
-        <Link href={`/subjects/${id}`}>
-          <button className="bg-sky rounded-full p-2">
-            <Image src={"/edit.png"} alt="View" width={15} height={15} />
+          <Link href={`/teachers/${id}`}>
+          {" "}
+          <button className=" bg-sky rounded-full p-2">
+            <Image src={"/view.png"} alt="view-icon" width={15} height={15} />
           </button>
         </Link>
-        {role.includes("admin") && (
-          <button className="bg-purple rounded-full p-2">
-            <Image src={"/delete.png"} alt="Delete" width={15} height={15} />
-          </button>
-        )}
+        {role.includes("admin") && <FormModal type="delete" table="teacher" id={id}  />}
+        
       </td>
     </tr>
   );
@@ -82,14 +80,7 @@ const SubjectsPage = () => {
                 height={15}
               />
             </button>
-            <button className=" bg-yellow p-2 hover:bg-orange-300 transition-colors duration-300 rounded-full">
-              <Image
-                src={"/plus.png"}
-                alt="filter-icon"
-                width={15}
-                height={15}
-              />
-            </button>
+            <FormModal table="announcement" type="create" />
           </div>
         </div>
       </div>

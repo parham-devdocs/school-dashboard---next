@@ -5,6 +5,7 @@ import Pagination from "@/components/Pagination";
 import Table from "@/components/Table";
 import { role, teachersData } from "@/lib/data";
 import Link from "next/link";
+import  FormModal  from '@/components/FormModal';
 interface Teacher {
   id: number;
   teacherId: string;
@@ -73,7 +74,9 @@ const Row = ({
       </td>
       <td className=" hidden md:table-cell text-center">{teacherId}</td>
       <td className=" hidden md:table-cell text-center">{classes.join(",")}</td>
-      <td className=" hidden md:table-cell text-center">{subjects.join(",")}</td>
+      <td className=" hidden md:table-cell text-center">
+        {subjects.join(",")}
+      </td>
       <td className=" hidden md:table-cell text-center">{phone}</td>
       <td className=" hidden md:table-cell text-center">{address}</td>
       <td className=" flex gap-2 items-center mb-5">
@@ -83,11 +86,8 @@ const Row = ({
             <Image src={"/view.png"} alt="view-icon" width={15} height={15} />
           </button>
         </Link>
-        {role.includes("admin") && (
-          <button className=" bg-purple rounded-full p-2">
-            <Image src={"/delete.png"} alt="view-icon" width={15} height={15} />
-          </button>
-        )}
+        {role.includes("admin") && <FormModal type="delete" table="teacher" id={id}  />}
+        
       </td>
     </tr>
   );
@@ -118,14 +118,7 @@ const TeacherPage = () => {
                 height={15}
               />
             </button>
-            <button className=" bg-yellow p-2 hover:bg-orange-300 transition-colors duration-300 rounded-full">
-              <Image
-                src={"/plus.png"}
-                alt="filter-icon"
-                width={15}
-                height={15}
-              />
-            </button>
+            <FormModal table="announcement" type="create" />
           </div>
         </div>
       </div>

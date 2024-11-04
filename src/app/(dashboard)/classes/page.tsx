@@ -5,6 +5,7 @@ import Pagination from "@/components/Pagination";
 import Table from "@/components/Table";
 import { role, classesData } from "@/lib/data";
 import Link from "next/link";
+import FormModal from "@/components/FormModal";
 
 interface Class {
   id: number;
@@ -46,15 +47,9 @@ const Row = ({ id, name, supervisor, grade, capacity }: Class) => {
       <td className="hidden md:table-cell text-center">{grade}</td>
       <td className=" text-center">{supervisor}</td>
       <td className="flex gap-2 items-center my-3 justify-center  ">
-        <Link href={`/parents/${id}`}>
-          <button className="bg-sky rounded-full p-2">
-            <Image src={"/edit.png"} alt="View" width={15} height={15} />
-          </button>
-        </Link>
+       <FormModal type="update" table="class"/>
         {role.includes("admin") && (
-          <button className="bg-purple rounded-full p-2">
-            <Image src={"/delete.png"} alt="Delete" width={15} height={15} />
-          </button>
+        <FormModal type="delete" table="class"/>
         )}
       </td>
     </tr>
@@ -86,14 +81,7 @@ const classesPage = () => {
                 height={15}
               />
             </button>
-            <button className=" bg-yellow p-2 hover:bg-orange-300 transition-colors duration-300 rounded-full">
-              <Image
-                src={"/plus.png"}
-                alt="filter-icon"
-                width={15}
-                height={15}
-              />
-            </button>
+            <FormModal table="announcement" type="create" />
           </div>
         </div>
       </div>
