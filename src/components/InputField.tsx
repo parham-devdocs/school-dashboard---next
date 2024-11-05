@@ -1,4 +1,5 @@
 import React from "react";
+import {motion} from "framer-motion"
 type InputType={
   name: string;
   register: any;
@@ -16,7 +17,8 @@ const Input = ({
   inputProps = {}, // Corrected the destructuring
 }:InputType ) => {
   return (
-    <div className="flex flex-col gap-1 w-[200px]">
+    
+    <motion.div className="flex flex-col gap-1 w-[200px] " initial={{opacity:0,}} animate={{opacity:1}} transition={{duration:2}}>
       <label htmlFor={name} className="font-semibold text-sm">
         {name.charAt(0).toUpperCase() + name.slice(1)}
       </label>
@@ -33,7 +35,7 @@ const Input = ({
           {errors[name]?.message.toString()}
         </p>
       )}
-    </div>
+    </motion.div>
   );
 };
 
