@@ -3,35 +3,7 @@ import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Image from "next/image";
-
-const Input = ({
-  name,
-  register,
-  errors,
-}: {
-  name: string;
-  register: any;
-  errors: any;
-}) => {
-  return (
-    <div className="flex flex-col gap-3">
-      <label htmlFor={name} className="font-semibold">
-        {name.charAt(0).toUpperCase() + name.slice(1)}
-      </label>
-      <input
-        id={name}
-        type="text"
-        className="px-2 py-1 border-gray-400 border-[2px] outline-none rounded-md bg-transparent focus:outline-2 focus:outline-blue-700 transition duration-300"
-        {...register(name)}
-      />
-      {errors[name]?.message && (
-        <p className="text-red-500 text-[10px]">
-          {errors[name]?.message.toString()}
-        </p>
-      )}
-    </div>
-  );
-};
+import Input from "@/components/InputField";
 
 const schema = z.object({
   username: z
@@ -46,16 +18,17 @@ const schema = z.object({
   lastName: z.string().min(1, { message: "Last name is required!" }),
   phone: z.string().min(1, { message: "Phone number is required!" }),
   address: z.string().min(1, { message: "Address is required!" }),
-img:z.any(),
+  img: z.any(),
   sex: z.enum(["male", "female"], { message: "Sex is required" }),
+  birthDay: z.any(),
 });
 
-const TeacherForm = ({ type }: { type: "create" | "update" }) => {
+const TeacherForm = ({ type,date }: { type: "create" | "update",date:any }) => {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({
+  } = useForm<z.infer<typeof schema>>({
     resolver: zodResolver(schema),
   });
 
@@ -70,31 +43,34 @@ const TeacherForm = ({ type }: { type: "create" | "update" }) => {
         {type === "create" ? "Create A New Teacher" : "Update Teacher"}
       </h1>
       <div className="my-6 flex flex-col gap-6">
-        <div className="space-y-6">
+        <div className="space-y-4">
           <h2 className="text-stone-400">Authentication Information</h2>
-          <div className="flex flex-wrap gap-8">
-            <Input name="username" register={register} errors={errors} />
+          <div className="flex flex-wrap gap-8 justify-between">
+            <Input
+              name="username"
+              register={register}
+              errors={errors}
+              defaultValue={date?.username}
+            />
             <Input name="email" register={register} errors={errors} />
             <Input name="password" register={register} errors={errors} />
           </div>
         </div>
-        <div className="space-y-6">
+        <div className="space-y-4">
           <h2 className="text-stone-400">Personal Information</h2>
-          <div className="flex flex-wrap gap-8">
+          <div className="flex flex-wrap gap-8 justify-between ">
             <Input name="firstName" register={register} errors={errors} />
             <Input name="lastName" register={register} errors={errors} />
             <Input name="phone" register={register} errors={errors} />
             <Input name="address" register={register} errors={errors} />
             <div className="flex flex-col gap-3">
-              <label htmlFor="dateOfBirth" className="font-semibold">
-                Date Of Birth
-              </label>
-              <input
-                id="dateOfBirth"
+              <Input
+                errors={errors}
                 type="date"
-                className="px-2 py-1 border-gray-400 border-[2px] outline-none rounded-md bg-transparent focus:outline-2 focus:outline-blue-700 transition duration-300"
-                {...register("birthDay")}
+                register={register}
+                name="birth day"
               />
+
               {errors.birthDay?.message && (
                 <p className="text-red-500 text-sm">
                   {errors?.birthDay?.message.toString()}
@@ -109,6 +85,7 @@ const TeacherForm = ({ type }: { type: "create" | "update" }) => {
                 id="sex"
                 className="px-2 py-1 border-gray-400 border-[2px] outline-none rounded-md bg-transparent focus:outline-2 focus:outline-blue-700 transition duration-300"
                 {...register("sex")}
+                defaultValue={date?.sex}
               >
                 <option value="">Select Gender</option>
                 <option value="male">Male</option>
@@ -120,7 +97,7 @@ const TeacherForm = ({ type }: { type: "create" | "update" }) => {
                 </p>
               )}
             </div>
-            <div className=" flex flex-col gap-3 my-7 ">
+            <div className=" flex flex-col gap-3 sm:my-7 my-1  ">
               <div className=" flex gap-3">
                 <label
                   htmlFor="img"

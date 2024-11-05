@@ -2,6 +2,7 @@
 import Image from "next/image";
 import React, { useState } from "react";
 import TeacherForm from "@/components/forms/TeacherForm.tsx"
+import { motion } from "framer-motion";
 
 const Form = ({ type, onCloseHandler, id, table }: { type: "create" | "delete" | "update"; table: string; onCloseHandler: (state: boolean) => void; id?: number }) => {
   if (type === "delete" && id) {
