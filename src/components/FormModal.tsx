@@ -1,10 +1,11 @@
 "use client";
 import Image from "next/image";
 import React, { useState } from "react";
-import TeacherForm from "@/components/forms/TeacherForm.tsx"
+import TeacherForm from "@/components/forms/TeacherForm"
 import { motion } from "framer-motion";
+import StudentForm from "./forms/studentForm";
 
-const Form = ({ type, onCloseHandler, id, table }: { type: "create" | "delete" | "update"; table: string; onCloseHandler: (state: boolean) => void; id?: number }) => {
+const Form = ({ type, onCloseHandler, id, table,data }: { type: "create" | "delete" | "update",data:any; table: string; onCloseHandler: (state: boolean) => void; id?: number }) => {
   if (type === "delete" && id) {
     return (
       <form className="w-full h-full bg-transparent flex flex-col items-center gap-2" onSubmit={(e) => e.preventDefault()}>
@@ -34,7 +35,15 @@ const Form = ({ type, onCloseHandler, id, table }: { type: "create" | "delete" |
   }
 
   if (type === "create") {
-    return <TeacherForm type="create" data="" />;
+    if (table==="teacher") {
+          return <TeacherForm type="create" data={data} />;
+
+    }
+    else {
+      return <StudentForm type="create" data={data}/>
+      
+
+    }
   }
 
 
@@ -84,7 +93,13 @@ const FormModal = ({
       {open && (
         <div className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-65 z-50">
           <div className="bg-white p-5 rounded shadow-md relative  w-[90%] md:w-[70%] lg:w-[60%] xl:w-[50%] 2xl:w-[50%]">
-            <Form type={ type } onCloseHandler={setOpen} id={id} />
+            <Form
+              type={type}
+              onCloseHandler={setOpen}
+              id={id}
+              table={table}
+              data={data}
+            />
             <button
               className=" absolute right-2 top-2"
               onClick={() => setOpen(false)}

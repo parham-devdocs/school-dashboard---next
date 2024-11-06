@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Image from "next/image";
 import Input from "@/components/InputField";
+import { motion } from "framer-motion";
 
 const schema = z.object({
   username: z
@@ -23,7 +24,7 @@ const schema = z.object({
   birthDay: z.any(),
 });
 
-const TeacherForm = ({ type,date }: { type: "create" | "update",date:any }) => {
+const TeacherForm = ({ type,data }: { type: "create" | "update",data:any }) => {
   const {
     register,
     handleSubmit,
@@ -44,20 +45,34 @@ const TeacherForm = ({ type,date }: { type: "create" | "update",date:any }) => {
       </h1>
       <div className="my-6 flex flex-col gap-6">
         <div className="space-y-4">
-          <h2 className="text-stone-400">Authentication Information</h2>
+          <motion.h2
+            className="text-stone-400"
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 2,delay:1 }}
+          >
+            Authentication Information
+          </motion.h2>
           <div className="flex flex-wrap gap-8 justify-between">
             <Input
               name="username"
               register={register}
               errors={errors}
-              defaultValue={date?.username}
+              defaultValue={data?.name}
             />
             <Input name="email" register={register} errors={errors} />
             <Input name="password" register={register} errors={errors} />
           </div>
         </div>
         <div className="space-y-4">
-          <h2 className="text-stone-400">Personal Information</h2>
+          <motion.h2
+            className="text-stone-400"
+            initial={{ opacity: 0, x: -10 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 2 ,delay:1}}
+          >
+            Personal Information
+          </motion.h2>
           <div className="flex flex-wrap gap-8 justify-between ">
             <Input name="firstName" register={register} errors={errors} />
             <Input name="lastName" register={register} errors={errors} />
@@ -77,15 +92,15 @@ const TeacherForm = ({ type,date }: { type: "create" | "update",date:any }) => {
                 </p>
               )}
             </div>
-            <div className="flex flex-col gap-3">
-              <label htmlFor="sex" className="font-semibold">
+            <div className="flex flex-col gap-1">
+              <label htmlFor="sex" className="font-semibold text-sm">
                 Gender
               </label>
               <select
                 id="sex"
                 className="px-2 py-1 border-gray-400 border-[2px] outline-none rounded-md bg-transparent focus:outline-2 focus:outline-blue-700 transition duration-300"
                 {...register("sex")}
-                defaultValue={date?.sex}
+                defaultValue={data?.sex}
               >
                 <option value="">Select Gender</option>
                 <option value="male">Male</option>

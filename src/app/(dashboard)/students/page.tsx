@@ -99,7 +99,7 @@ const StudentsPage = () => {
     <div className=" bg-white p-4 rounded-md flex-1 m-4 mt-0">
       {/* TOP */}
       <div className=" flex justify-between items-center">
-        <h1 className=" font-semibold text-xl hidden md:block">All Teacher</h1>
+        <h1 className=" font-semibold text-xl hidden md:block">All Students</h1>
         <div className=" flex flex-col  md:flex-row items-center gap-4  w-full md:w-auto">
           <TableSearch />
           <div className=" flex gap-2">
@@ -119,7 +119,7 @@ const StudentsPage = () => {
                 height={15}
               />
             </button>
-            <FormModal table="announcement" type="create" />
+            <FormModal table="student" type="create"  />
           </div>
         </div>
       </div>

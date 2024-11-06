@@ -86,7 +86,7 @@ const Row = ({
             <Image src={"/view.png"} alt="view-icon" width={15} height={15} />
           </button>
         </Link>
-        {role.includes("admin") && <FormModal type="delete" table="teacher" id={id}  />}
+        {role.includes("admin") && <FormModal type="delete" table="teacher" id={id} data={{name,email,phone,address,photo}}  />}
         
       </td>
     </tr>
@@ -98,7 +98,7 @@ const TeacherPage = () => {
     <div className=" bg-white p-4 rounded-md flex-1 m-4 mt-0">
       {/* TOP */}
       <div className=" flex justify-between items-center">
-        <h1 className=" font-semibold text-xl hidden md:block">All Teacher</h1>
+        <h1 className=" font-semibold text-xl hidden md:block">All Teachers</h1>
         <div className=" flex flex-col  md:flex-row items-center gap-4  w-full md:w-auto">
           <TableSearch />
           <div className=" flex gap-2">
@@ -118,7 +118,7 @@ const TeacherPage = () => {
                 height={15}
               />
             </button>
-            <FormModal table="announcement" type="create" />
+            <FormModal table="teacher" type="create" />
           </div>
         </div>
       </div>
