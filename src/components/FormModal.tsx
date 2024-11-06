@@ -1,10 +1,9 @@
 "use client";
 import Image from "next/image";
 import React, { useState } from "react";
-import TeacherForm from "@/components/forms/TeacherForm"
-import { motion } from "framer-motion";
-import StudentForm from "./forms/studentForm";
-
+import dynamic from "next/dynamic";
+const TeacherForm=dynamic(()=>import("./forms/TeacherForm"),{loading:()=><h1>Loading...</h1>})
+const StudentForm =dynamic( ()=>import("./forms/studentForm"),{loading:()=><h1>Loading...</h1>} )
 const Form = ({ type, onCloseHandler, id, table,data }: { type: "create" | "delete" | "update",data:any; table: string; onCloseHandler: (state: boolean) => void; id?: number }) => {
   if (type === "delete" && id) {
     return (
