@@ -2,6 +2,7 @@
 import Image from "next/image";
 import React, { useState } from "react";
 import dynamic from "next/dynamic";
+import { notFound } from "next/navigation";
 const TeacherForm=dynamic(()=>import("./forms/TeacherForm"),{loading:()=><h1>Loading...</h1>})
 const StudentForm =dynamic( ()=>import("./forms/studentForm"),{loading:()=><h1>Loading...</h1>} )
 const Form = ({ type, onCloseHandler, id, table,data }: { type: "create" | "delete" | "update",data:any; table: string; onCloseHandler: (state: boolean) => void; id?: number }) => {
@@ -38,10 +39,13 @@ const Form = ({ type, onCloseHandler, id, table,data }: { type: "create" | "dele
           return <TeacherForm type="create" data={data} />;
 
     }
-    else {
+    if (table==="student") {
       return <StudentForm type="create" data={data}/>
       
 
+    }
+    else{
+      return <h1>Form Not Found</h1>
     }
   }
 
