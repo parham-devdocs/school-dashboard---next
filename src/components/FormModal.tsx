@@ -2,7 +2,7 @@
 import Image from "next/image";
 import React, { useState } from "react";
 import dynamic from "next/dynamic";
-import { notFound } from "next/navigation";
+import { motion } from "framer-motion";
 const TeacherForm=dynamic(()=>import("./forms/TeacherForm"),{loading:()=><h1>Loading...</h1>})
 const StudentForm =dynamic( ()=>import("./forms/studentForm"),{loading:()=><h1>Loading...</h1>} )
 const Form = ({ type, onCloseHandler, id, table,data }: { type: "create" | "delete" | "update",data:any; table: string; onCloseHandler: (state: boolean) => void; id?: number }) => {
@@ -45,7 +45,7 @@ const Form = ({ type, onCloseHandler, id, table,data }: { type: "create" | "dele
 
     }
     else{
-      return <h1>Form Not Found</h1>
+      return <motion.h1 initial={{opacity:0}} animate={{opacity:1}} transition={{duration:1}} className=" text-red-600 text-center my-20">Form Not Found</motion.h1>
     }
   }
 

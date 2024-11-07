@@ -1,0 +1,119 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Admin {
+  id        Int      @id @default(autoincrement())
+  username  String   @unique
+  password  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Teacher {
+  id        Int       @id @default(autoincrement())
+  name      String
+  subjects  Subject[]
+  lessons   Lesson[]
+  classes   Class[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+
+model Subject {
+  id       Int       @id @default(autoincrement())
+  name     String
+  teachers Teacher[]
+  lessons  Lesson[]
+}
+
+model Class {
+  id           Int       @id @default(autoincrement())
+  grade        Grade     @relation(fields: [gradeId], references: [id])
+  gradeId      Int
+  supervisor   Teacher   @relation(fields: [supervisorId], references: [id])
+  supervisorId Int
+  students     Student[]
+  lessons      Lesson[]
+}
+
+model Student {
+  id         Int          @id @default(autoincrement())
+  name       String
+  parent     Parent?      @relation(fields: [parentId], references: [id])
+  parentId   Int?
+  grade      Grade        @relation(fields: [gradeId], references: [id])
+  gradeId    Int
+  class      Class        @relation(fields: [classId], references: [id])
+  classId    Int
+  results    Result[]
+  attendance Attendance[]
+}
+
+model Parent {
+  id       Int       @id @default(autoincrement())
+  name     String
+  children Student[]
+}
+
+model Grade {
+  id       Int       @id @default(autoincrement())
+  name     String
+  students Student[]
+  classes  Class[]
+}
+
+model Lesson {
+  id          Int          @id @default(autoincrement())
+  class       Class        @relation(fields: [classId], references: [id])
+  classId     Int
+  subject     Subject      @relation(fields: [subjectId], references: [id])
+  subjectId   Int
+  teacher     Teacher      @relation(fields: [teacherId], references: [id])
+  teacherId   Int
+  exams       Exam[]
+  assignments Assignment[]
+  Attendance  Attendance[]
+}
+
+model Exam {
+  id       Int     @id @default(autoincrement())
+  lesson   Lesson  @relation(fields: [lessonId], references: [id])
+  lessonId Int
+  result   Result?
+}
+
+model Assignment {
+  id       Int     @id @default(autoincrement())
+  lesson   Lesson  @relation(fields: [lessonId], references: [id])
+  lessonId Int
+  result   Result?
+}
+
+model Result {
+  id           Int         @id @default(autoincrement())
+  student      Student     @relation(fields: [studentId], references: [id])
+  studentId    Int
+  exam         Exam?       @relation(fields: [examId], references: [id])
+  examId       Int?        @unique // Remove unique if multiple results per exam are needed
+  assignment   Assignment? @relation(fields: [assignmentId], references: [id])
+  assignmentId Int?        @unique // Remove unique if multiple results per assignment are needed
+  score        Float
+}
+
+model Attendance {
+  id        Int     @id @default(autoincrement())
+  student   Student @relation(fields: [studentId], references: [id])
+  studentId Int
+  lesson    Lesson  @relation(fields: [lessonId], references: [id])
+  lessonId  Int
+  isPresent Boolean
+}
