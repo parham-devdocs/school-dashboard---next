@@ -1,5 +1,5 @@
-import { Day,  UserSex } from "@prisma/client";
-import prisma from './prismaClient'
+import { Day, UserSex } from "@prisma/client";
+import prisma from "./prismaClient";
 
 async function main() {
   // ADMIN

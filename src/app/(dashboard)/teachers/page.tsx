@@ -5,18 +5,11 @@ import Pagination from "@/components/Pagination";
 import Table from "@/components/Table";
 import { role, teachersData } from "@/lib/data";
 import Link from "next/link";
-import  FormModal  from '@/components/FormModal';
-interface Teacher {
-  id: number;
-  teacherId: string;
-  name: string;
-  email?: string;
-  photo: string;
-  subjects: string[];
-  classes: string[];
-  address: string;
-  phone: string;
-}
+import FormModal from '@/components/FormModal';
+import { Class, Subject, Teacher } from "@prisma/client";
+import prisma from "../../../../prisma/prismaClient";
+type TeacherType =  Teacher&{subjects:Subject[]} &{classes:Class[]}
+
 const colomns = [
   { header: "Info", accessor: "info" },
   {
@@ -46,54 +39,45 @@ const colomns = [
   },
   { header: "Actions", accessor: "actions" },
 ];
-const Row = ({
-  id,
-  teacherId,
-  name,
-  email,
-  photo,
-  phone,
-  subjects,
-  classes,
-  address,
-}: Teacher) => {
+const Row = (item:TeacherType ) => {
   return (
     <tr className=" even:bg-purpleLight ">
       <td className=" flex gap-4 items-center ml-3">
         <Image
-          src={photo}
-          alt={` ${name} photo`}
+          src={item.img || "/noavatar.jpeg"}
+          alt={` ${item.name} photo`}
           width={30}
           height={30}
           className=" rounded-full md:hidden xl:block w-10 h-10"
         />
         <div className=" flex flex-col gap-2 ">
-          <h3 className=" font-medium">{name}</h3>
-          <h4>{email}</h4>
+          <h3 className=" font-medium">{item.username}</h3>
+          <h4>{item.email}</h4>
         </div>
       </td>
-      <td className=" hidden md:table-cell text-center">{teacherId}</td>
-      <td className=" hidden md:table-cell text-center">{classes.join(",")}</td>
+      <td className=" hidden md:table-cell text-center">{item.id}</td>
+      <td className=" hidden md:table-cell text-center">{item.classes.map(item=>item.name)}</td>
       <td className=" hidden md:table-cell text-center">
-        {subjects.join(",")}
+        {item.subjects.map(item=>item.name)}
       </td>
-      <td className=" hidden md:table-cell text-center">{phone}</td>
-      <td className=" hidden md:table-cell text-center">{address}</td>
+      <td className=" hidden md:table-cell text-center">{item.phone}</td>
+      <td className=" hidden md:table-cell text-center">{item.address}</td>
       <td className=" flex gap-2 items-center mb-5">
-        <Link href={`/teachers/${id}`}>
+        <Link href={`/teachers/${item.id}`}>
           {" "}
           <button className=" bg-sky rounded-full p-2">
             <Image src={"/view.png"} alt="view-icon" width={15} height={15} />
           </button>
         </Link>
-        {role.includes("admin") && <FormModal type="delete" table="teacher" id={id} data={{name,email,phone,address,photo}}  />}
+        {role.includes("admin") && <FormModal type="delete" table="teacher" id={item.id} data={item}  />}
         
       </td>
     </tr>
   );
 };
 
-const TeacherPage = () => {
+const TeacherPage = async() => {
+  const teachers=await prisma.teacher.findMany({include:{subjects:true,classes:true}})
   return (
     <div className=" bg-white p-4 rounded-md flex-1 m-4 mt-0">
       {/* TOP */}
@@ -123,7 +107,7 @@ const TeacherPage = () => {
         </div>
       </div>
       {/* LIST */}
-      <Table columns={colomns} data={teachersData} renderRow={Row} />
+      <Table columns={colomns} data={teachers} renderRow={Row} />
       {/* PAGINATION  */}
       <Pagination />
     </div>

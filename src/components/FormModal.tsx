@@ -5,7 +5,7 @@ import dynamic from "next/dynamic";
 import { motion } from "framer-motion";
 const TeacherForm=dynamic(()=>import("./forms/TeacherForm"),{loading:()=><h1>Loading...</h1>})
 const StudentForm =dynamic( ()=>import("./forms/studentForm"),{loading:()=><h1>Loading...</h1>} )
-const Form = ({ type, onCloseHandler, id, table,data }: { type: "create" | "delete" | "update",data:any; table: string; onCloseHandler: (state: boolean) => void; id?: number }) => {
+const Form = ({ type, onCloseHandler, id, table,data }: { type: "create" | "delete" | "update",data:any; table: string; onCloseHandler: (state: boolean) => void; id?: string }) => {
   if (type === "delete" && id) {
     return (
       <form className="w-full h-full bg-transparent flex flex-col items-center gap-2" onSubmit={(e) => e.preventDefault()}>
@@ -74,7 +74,7 @@ const FormModal = ({
     | "announcement";
   type: "create" | "update" | "delete";
   data?: any;
-  id?: number;
+  id?:  string;
 }) => {
   const [open, setOpen] = useState(false);
   const size = type === "create" ? "w-8 h-8" : "w-7 h-7";
