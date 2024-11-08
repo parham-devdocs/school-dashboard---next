@@ -1,14 +1,14 @@
 import TableSearch from "@/components/TableSearch";
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import Pagination from "@/components/Pagination";
 import Table from "@/components/Table";
 import { role, teachersData } from "@/lib/data";
 import Link from "next/link";
-import FormModal from '@/components/FormModal';
+import FormModal from "@/components/FormModal";
 import { Class, Subject, Teacher } from "@prisma/client";
 import prisma from "../../../../prisma/prismaClient";
-type TeacherType =  Teacher&{subjects:Subject[]} &{classes:Class[]}
+type TeacherType = Teacher & { subjects: Subject[] } & { classes: Class[] };
 
 const colomns = [
   { header: "Info", accessor: "info" },
@@ -39,7 +39,7 @@ const colomns = [
   },
   { header: "Actions", accessor: "actions" },
 ];
-const Row = (item:TeacherType ) => {
+const Row = (item: TeacherType) => {
   return (
     <tr className=" even:bg-purpleLight ">
       <td className=" flex gap-4 items-center ml-3">
@@ -56,10 +56,15 @@ const Row = (item:TeacherType ) => {
         </div>
       </td>
       <td className=" hidden md:table-cell text-center">{item.id}</td>
-      <td className=" hidden md:table-cell text-center">{item.classes.map(item=>item.name)}</td>
       <td className=" hidden md:table-cell text-center">
-        {item.subjects.map(item=>item.name)}
+        {item.classes.map((item) => item.name).join(",")}
       </td>
+      <td className="hidden md:table-cell text-center">
+        {item.subjects.length > 0
+          ? item.subjects.map((subject) => subject.name).join(", ")
+          : "no subject"}
+      </td>
+
       <td className=" hidden md:table-cell text-center">{item.phone}</td>
       <td className=" hidden md:table-cell text-center">{item.address}</td>
       <td className=" flex gap-2 items-center mb-5">
@@ -69,15 +74,30 @@ const Row = (item:TeacherType ) => {
             <Image src={"/view.png"} alt="view-icon" width={15} height={15} />
           </button>
         </Link>
-        {role.includes("admin") && <FormModal type="delete" table="teacher" id={item.id} data={item}  />}
-        
+        {role.includes("admin") && (
+          <FormModal type="delete" table="teacher" id={item.id} data={item} />
+        )}
       </td>
     </tr>
   );
 };
 
-const TeacherPage = async() => {
-  const teachers=await prisma.teacher.findMany({include:{subjects:true,classes:true}})
+const TeacherPage = async ({
+  searchParams,
+}: {
+  searchParams: { [key: string]: string | string[] | undefined };
+}) => {
+  // const { page, ...queryParams } = SearchParams;
+  // const p = page ? parseInt(page) : 1;
+  const teachers = await prisma.teacher.findMany({
+    include: { subjects: true, classes: true },
+    take: 10,
+    // skip:10*(p-1)
+  });
+
+  const totalCount = await prisma.teacher.count();
+  const totalPage = Math.ceil(totalCount / 10);
+  console.log(searchParams);
   return (
     <div className=" bg-white p-4 rounded-md flex-1 m-4 mt-0">
       {/* TOP */}
@@ -109,7 +129,7 @@ const TeacherPage = async() => {
       {/* LIST */}
       <Table columns={colomns} data={teachers} renderRow={Row} />
       {/* PAGINATION  */}
-      <Pagination />
+      <Pagination totalPages={totalCount} />
     </div>
   );
 };
