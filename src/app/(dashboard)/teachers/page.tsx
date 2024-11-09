@@ -97,18 +97,22 @@ if (queryParams) {
   switch (key) {
     case "classId":
       query.lessons = { some: { classId: parseInt(value!) } };
+      break
     case "subjectId":
       query.subjects = { some: { id: parseInt(value!) } };
+      break
     case "phone":
       query.phone = { equals: value! };
+      break
     case "address":
       query.address = { equals: value! };
-    case "name":
-      query.username = { equals: value! };
+      break
+    case "search":
+      query.name = { contains: value!,mode:"insensitive" };
+      break
     case "email":
       query.email = { equals: value! };
-
-    default:
+  
       break;
   }
     
