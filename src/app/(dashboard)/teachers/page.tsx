@@ -83,21 +83,22 @@ const Row = (item: TeacherType) => {
 };
 
 const TeacherPage = async ({
-  searchParams,
+  searchParams, 
 }: {
   searchParams: { [key: string]: string | string[] | undefined };
 }) => {
-  // const { page, ...queryParams } = SearchParams;
-  // const p = page ? parseInt(page) : 1;
-  const teachers = await prisma.teacher.findMany({
+  const { page, ...queryParams } = searchParams;
+  const p = page ? parseInt(page) : 1;
+  const [data,count]=await prisma.$transaction([
+  prisma.teacher.findMany({
     include: { subjects: true, classes: true },
     take: 10,
-    // skip:10*(p-1)
-  });
+    skip:10*(p-1)
+  }), prisma.teacher.count()
 
-  const totalCount = await prisma.teacher.count();
-  const totalPage = Math.ceil(totalCount / 10);
-  console.log(searchParams);
+  ])
+
+  const totalPage = Math.ceil(count / 10);
   return (
     <div className=" bg-white p-4 rounded-md flex-1 m-4 mt-0">
       {/* TOP */}
@@ -127,9 +128,9 @@ const TeacherPage = async ({
         </div>
       </div>
       {/* LIST */}
-      <Table columns={colomns} data={teachers} renderRow={Row} />
+      <Table columns={colomns} data={data} renderRow={Row} />
       {/* PAGINATION  */}
-      <Pagination totalPages={totalCount} />
+      <Pagination totalPages={totalPage} p={p}  />
     </div>
   );
 };
