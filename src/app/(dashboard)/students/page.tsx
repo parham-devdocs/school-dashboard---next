@@ -6,18 +6,10 @@ import Table from "@/components/Table";
 import { role, studentsData } from "@/lib/data";
 import Link from "next/link";
 import FormModal from "@/components/FormModal";
+import { Class, Grade, Student } from "@prisma/client";
+import prisma from "../../../../prisma/prismaClient";
+type StudentType =Student & { grade:Grade } &{class:Class}
 
-interface Student {
-  id: number;
-  studentId: string;
-  name: string;
-  email?: string;
-  photo?: string;
-  grade: number;
-  studentClass: string; // Changed from studentClass to class
-  address: string;
-  phone: string;
-}
 const columns = [
   { header: "Info", accessor: "info" },
   {
@@ -48,53 +40,59 @@ const columns = [
   { header: "Actions", accessor: "actions" },
 ];
 
-const Row = ({
-  id,
-  studentId,
-  name,
-  email,
-  photo,
-  phone,
-  grade,
-  studentClass,
-  address,
-}: Student) => {
+const Row = (item: StudentType) => {
   return (
-    <tr key={id} className="even:bg-purpleLight">
+    <tr key={item.id} className="even:bg-purpleLight">
       {" "}
       {/* Added key prop */}
       <td className="flex gap-4 items-center ml-3 ">
         <Image
-          src={photo}
-          alt={`${name}'s photo`} // Improved alt text
+          src={item.img || "/noavatar.jpeg"}
+          alt={`${item.name}'s photo`} // Improved alt text
           width={30}
           height={30}
           className="rounded-full md:hidden xl:block w-10 h-10"
         />
         <div className="flex flex-col gap-2">
-          <h3 className="font-medium">{name}</h3>
-          <h4>{email}</h4>
+          <h3 className="font-medium">{item.name}</h3>
+          <h4>{item.email}</h4>
         </div>
       </td>
-      <td className="hidden md:table-cell text-center">{studentId}</td>
-      <td className="hidden md:table-cell text-center">{grade}</td>
-      <td className="hidden md:table-cell text-center">{studentClass}</td>
-      <td className="hidden md:table-cell text-center">{phone}</td>
-      <td className="hidden md:table-cell text-center">{address}</td>
+      <td className="hidden md:table-cell text-center">{item.id}</td>
+      <td className="hidden md:table-cell text-center">{item.grade?.level}</td>
+      <td className="hidden md:table-cell text-center">{item.class?.name}</td>
+      <td className="hidden md:table-cell text-center">{item.phone}</td>
+      <td className="hidden md:table-cell text-center">{item.address}</td>
       <td className="flex gap-2 items-center mb-5">
-        <Link href={`/students/${id}`}>
+        <Link href={`/students/${item.id}`}>
           <button className="bg-sky rounded-full p-2">
             <Image src={"/view.png"} alt="View" width={15} height={15} />
           </button>
         </Link>
-        {role.includes("admin") && <FormModal type="create" table="student"  />}
+        {role.includes("admin") && <FormModal type="create" table="student" />}
       </td>
     </tr>
   );
 };
 
 
-const StudentsPage = () => {
+const StudentsPage =async ({
+  searchParams, 
+}: {
+  searchParams: { [key: string]: string | string[] | undefined };
+}) => {
+  const { page, ...queryParams } = searchParams;
+  const p = page ? parseInt(page) : 1;
+  const [data,count]=await prisma.$transaction([
+  prisma.student.findMany({
+    include: { class: true, grade: true },
+    take: 10,
+    skip:10*(p-1)
+  }), prisma.teacher.count()
+
+  ])
+
+  const totalPage = Math.ceil(count / 10)
   return (
     <div className=" bg-white p-4 rounded-md flex-1 m-4 mt-0">
       {/* TOP */}
@@ -126,7 +124,7 @@ const StudentsPage = () => {
       {/* LIST */}
       <Table columns={columns} data={studentsData} renderRow={Row} />
       {/* PAGINATION  */}
-      <Pagination />
+      <Pagination totalPages={totalPage} p={p} />
     </div>
   );
 };
