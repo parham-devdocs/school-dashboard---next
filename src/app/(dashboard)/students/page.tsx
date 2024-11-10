@@ -3,10 +3,10 @@ import React from "react";
 import Image from "next/image";
 import Pagination from "@/components/Pagination";
 import Table from "@/components/Table";
-import { role, studentsData } from "@/lib/data";
+import { role } from "@/lib/data";
 import Link from "next/link";
 import FormModal from "@/components/FormModal";
-import { Class, Grade, Student } from "@prisma/client";
+import { Class, Grade, Prisma, Student } from "@prisma/client";
 import prisma from "../../../../prisma/prismaClient";
 type StudentType =Student & { grade:Grade } &{class:Class}
 
@@ -47,7 +47,7 @@ const Row = (item: StudentType) => {
       {/* Added key prop */}
       <td className="flex gap-4 items-center ml-3 ">
         <Image
-          src={item.img || "/noavatar.jpeg"}
+          src={item.img! || "/noavatar.jpeg"}
           alt={`${item.name}'s photo`} // Improved alt text
           width={30}
           height={30}
@@ -76,23 +76,39 @@ const Row = (item: StudentType) => {
 };
 
 
-const StudentsPage =async ({
-  searchParams, 
+const StudentsPage = async ({
+  searchParams,
 }: {
-  searchParams: { [key: string]: string | string[] | undefined };
+  searchParams: { [key: string]: string | undefined };
 }) => {
   const { page, ...queryParams } = searchParams;
   const p = page ? parseInt(page) : 1;
-  const [data,count]=await prisma.$transaction([
-  prisma.student.findMany({
-    include: { class: true, grade: true },
-    take: 10,
-    skip:10*(p-1)
-  }), prisma.teacher.count()
 
-  ])
+  // Initialize the where clause dynamically
+  const query: Prisma.StudentWhereInput = {};
 
-  const totalPage = Math.ceil(count / 10)
+  if (queryParams) {
+    for (const [key, value] of Object.entries(queryParams)) {
+      switch (key) {
+        case "teacherId":
+          query.class = {
+            lessons:{some:{classId:parseInt(value!)}}
+          }
+          break;
+      }
+    }
+  }
+
+  const [data, count] = await prisma.$transaction([
+    prisma.student.findMany({
+      where: query,
+      include: { class:true,grade:true },
+      take: 10,
+      skip: 10 * (p - 1),
+    }),
+    prisma.student.count({ where: query }),
+  ]);
+  const totalPage = Math.ceil(count / 10);
   return (
     <div className=" bg-white p-4 rounded-md flex-1 m-4 mt-0">
       {/* TOP */}
@@ -117,12 +133,12 @@ const StudentsPage =async ({
                 height={15}
               />
             </button>
-            <FormModal table="student" type="create"  />
+            <FormModal table="student" type="create" />
           </div>
         </div>
       </div>
       {/* LIST */}
-      <Table columns={columns} data={studentsData} renderRow={Row} />
+      <Table columns={columns} data={data} renderRow={Row} />
       {/* PAGINATION  */}
       <Pagination totalPages={totalPage} p={p} />
     </div>
